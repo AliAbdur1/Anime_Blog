@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div id="popup">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+                <button onclick="popup.remove()">Okay</button>
+            </div>
+        {% endif %}
+    {% endwith %}
+    <form action="/post_to_view" method="post">
+
+
+        <lable for="title">Title:</lable><br>
+        <input type="text" name="title"><br>
+        <label for="network">Plot</label><br>
+        <textarea name="plot" rows="5" cols="50"></textarea><br>
+        <label for="new_user_id">{{session['user_name']}}</label><br>
+        <select type="hidden" name="user_id">
+            {% for user in users %}
+            <option value="{{ user.id }}" selected>
+                {{session['user_name']}}
+            </option>
+            {% endfor %}
+        </select><br>
+
+        
+
+
+        <input type="submit" value="Post to forum"><br>
+    </from>
+    <a href="/">Home</a>
+    
+</body>
+</html>
